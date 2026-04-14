@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Google Sans", sans-serif;
+
+  --text-xxs: 0.65rem;
+
+  --color-app-background: #f4f6fb;
+  --color-app-border: #e8edf6;
+  --color-app-border-mid: #d5ddf0;
+
+  --color-brand-dark: #0e0d10;
+  --color-brand-mid: #33343f;
+  --color-brand-muted: #5f6275;
+
+  --color-brand-50: #f1f6fd;
+  --color-brand-100: #e0e9f9;
+  --color-brand-200: #c8d9f5;
+  --color-brand-300: #a3c2ed;
+  --color-brand-400: #77a1e3;
+  --color-brand-500: #5781da;
+  --color-brand-600: #4165cd;
+  --color-brand-700: #3954bc;
+  --color-brand-800: #344699;
+  --color-brand-900: #2e3d7a;
+  --color-brand-950: #20274b;
+
+  --animate-fade-up: fadeUp 0.5s ease forwards;
+
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-body text-brand-dark;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply flex items-center gap-2 cursor-pointer text-xs rounded-md py-2 px-4.5 transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-brand-600 hover:bg-brand-700 text-white;
+  }
+}
+
+.animation-delay-75 {
+  animation-delay: 75ms;
+}
+
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-150 {
+  animation-delay: 150ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+.recharts-wrapper * {
+  outline: none !important;
+}
+
+.recharts-wrapper svg:focus,
+.recharts-wrapper g:focus,
+.recharts-wrapper path:focus {
+  outline: none !important;
+}
