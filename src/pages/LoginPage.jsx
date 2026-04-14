@@ -1,7 +1,10 @@
 import { Check, Play, ChevronRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/landing/Navbar";
 
 const LoginPage = () => {
+  const { login } = useAuth();
+
   return (
     <>
       <Navbar />
@@ -56,7 +59,10 @@ const LoginPage = () => {
             <p className="text-brand-muted text-sm mb-8 leading-tight opacity-0 animate-fade-up animation-delay-350">
               Access your workouts, pace zones, race predictions, and training data from anywhere.
             </p>
-            <button className="flex items-center justify-center gap-3 bg-white border border-brand-200 cursor-pointer font-semibold text-xs px-5 py-3 rounded-md w-full mb-4 opacity-0 animate-fade-up animation-delay-400 hover:border-brand-300 hover:bg-brand-50 transition duration-150 ease-in">
+            <button
+              onClick={login}
+              className="flex items-center justify-center gap-3 bg-white border border-brand-200 cursor-pointer font-semibold text-xs px-5 py-3 rounded-md w-full mb-4 opacity-0 animate-fade-up animation-delay-400 hover:border-brand-300 hover:bg-brand-50 transition duration-150 ease-in"
+            >
               <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                 <g fill="none" fillRule="evenodd">
                   <path
