@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
 import ProtectedRoute from "@/pages/ProtectedRoute";
+import AppLayout from "@/components/AppLayout";
 import DashboardPage from "@/pages/DashboardPage";
 
 const App = () => {
@@ -18,9 +19,11 @@ const App = () => {
         path="/app/*"
         element={
           <ProtectedRoute>
-            <Routes>
-              <Route index element={<DashboardPage />} />
-            </Routes>
+            <AppLayout>
+              <Routes>
+                <Route index element={<DashboardPage />} />
+              </Routes>
+            </AppLayout>
           </ProtectedRoute>
         }
       />
