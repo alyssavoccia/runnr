@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { MoveRight } from "lucide-react";
 import { ResponsiveContainer, Area, AreaChart, Tooltip, XAxis } from "recharts";
 
@@ -39,7 +40,7 @@ const Hero = () => {
     <section className="relative min-h-dvh grid grid-cols-1 md:grid-cols-2 gap-12 items-center justify-center bg-white overflow-hidden w-full">
       {/* LEFT */}
       <div className="flex flex-col justify-center h-full px-10 pt-28 pb-0 md:pb-20">
-        <h1 className="font-bold text-[clamp(3rem,6vw,5.5rem)] leading-none tracking-tight mb-7 opacity-0 animate-fade-up animation-delay-100">
+        <h1 className="font-bold text-[clamp(3rem,5vw,5.5rem)] leading-none tracking-tight mb-7 opacity-0 animate-fade-up animation-delay-100">
           Train with <br />
           <em className="italic text-brand-600">intention.</em>
           <br />
@@ -49,9 +50,9 @@ const Hero = () => {
           Import data from Apple Health or Garmin, auto-sync every run, and gain insights into your training.
         </p>
         <div className="flex items-center gap-5 flex-wrap opacity-0 animate-fade-up animation-delay-200">
-          <a href="#" className="btn btn-primary py-3 px-7 drop-shadow drop-shadow-brand-600/40">
+          <Link to="/login" className="btn btn-primary py-3 px-7 drop-shadow drop-shadow-brand-600/40" prefetch="none">
             Start for free
-          </a>
+          </Link>
           <button className="group cursor-pointer text-xs text-brand-muted hover:text-brand-dark flex items-center gap-1 transition duration-150 ease-in">
             Try live demo
             <MoveRight className="group-hover:translate-x-0.5 transition duration-150 ease-in" size={12} />
