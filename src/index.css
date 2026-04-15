@@ -66,8 +66,28 @@
     @apply flex items-center gap-2 cursor-pointer text-xs rounded-md py-2 px-4.5 transition-all duration-200;
   }
 
+  .btn svg {
+    @apply size-3;
+  }
+
   .btn-primary {
     @apply bg-brand-600 hover:bg-brand-700 text-white;
+  }
+
+  .card {
+    @apply bg-white rounded-lg border border-app-border overflow-hidden;
+  }
+
+  .card-header {
+    @apply flex flex-wrap items-center justify-between border-b border-app-border py-4 px-5;
+  }
+
+  .card-title {
+    @apply font-heading font-bold text-sm tracking-tight;
+  }
+
+  .card-badge {
+    @apply bg-app-background font-semibold text-xxs text-brand-muted py-1 px-3 rounded-full border border-app-border-mid;
   }
 }
 
