@@ -67,7 +67,7 @@ const Hero = () => {
               <div className="w-2 h-2 rounded-full bg-red-400" />
               <div className="w-2 h-2 rounded-full bg-yellow-400" />
               <div className="w-2 h-2 rounded-full bg-green-400" />
-              <span className="ml-2 text-xs text-brand-muted">runnrco.com/dashboard</span>
+              <span className="ml-2 text-xs text-brand-muted">runnrco.com/app</span>
             </div>
             <div className="p-5">
               <div className="grid grid-cols-4 gap-2 mb-4">
