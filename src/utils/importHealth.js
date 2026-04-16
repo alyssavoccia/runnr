@@ -86,12 +86,6 @@ export const importHealth = async (file) => {
     }
   };
 
-  parser.onend = () => {
-    setWorkouts(workoutsArray);
-    setLoading(false);
-    console.log(`Parsed ${workoutsArray.length} workouts`);
-  };
-
   const reader = file.stream().getReader();
   const decoder = new TextDecoder("utf-8");
 

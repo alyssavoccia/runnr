@@ -2,6 +2,7 @@ import { useState } from "react";
 import ImportSources from "@/components/ImportSources";
 import ImportZone from "@/components/ImportZone";
 import ImportStatus from "@/components/ImportStatus";
+import ImportWorkoutSelector from "@/components/ImportWorkoutSelector";
 
 const GarminIcon = ({ classes }) => {
   return (
@@ -53,6 +54,8 @@ const ImportPage = () => {
           <ImportZone source={SOURCES[source]} setWorkouts={setWorkouts} />
         </>
       )}
+
+      {workouts && <ImportWorkoutSelector workouts={workouts} />}
     </div>
   );
 };
