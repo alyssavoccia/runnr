@@ -12,8 +12,12 @@ export const importHealth = async (file) => {
       if (node.attributes.workoutActivityType === "HKWorkoutActivityTypeRunning") {
         const start = new Date(node.attributes.startDate);
 
+        const id = `health-${node.attributes.startDate}`;
+
+        if (workoutsArray.find((workout) => workout.id === id)) return;
+
         currentWorkout = {
-          id: `health-${node.attributes.startDate}`,
+          id,
           date: start,
           temperature: null,
           name: `Run on ${start.toLocaleDateString("en-US", {

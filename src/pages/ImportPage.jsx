@@ -42,21 +42,24 @@ const ImportPage = () => {
   const [workouts, setWorkouts] = useState(null);
 
   return (
-    <div className="max-w-2xl space-y-6">
-      <div className="opacity-0 animate-fade-up animation-delay-75">
-        <h1 className="font-bold text-2xl">Import Workouts</h1>
-        <p className="text-sm text-brand-muted mt-1">Upload your run history from Garmin Connect or Apple Health.</p>
-      </div>
-
+    <>
       {!workouts && (
-        <>
-          <ImportSources sources={SOURCES} source={source} setSource={setSource} />
-          <ImportZone source={SOURCES[source]} setWorkouts={setWorkouts} />
-        </>
-      )}
+        <div className="max-w-2xl space-y-6">
+          <>
+            <div className="opacity-0 animate-fade-up animation-delay-75">
+              <h1 className="font-bold text-2xl">Import Workouts</h1>
+              <p className="text-sm text-brand-muted mt-1">Upload your run history from Garmin Connect or Apple Health.</p>
+            </div>
 
-      {workouts && <ImportWorkoutSelector workouts={workouts} />}
-    </div>
+            <>
+              <ImportSources sources={SOURCES} source={source} setSource={setSource} />
+              <ImportZone source={SOURCES[source]} setWorkouts={setWorkouts} />
+            </>
+          </>
+        </div>
+      )}
+      {workouts && <ImportWorkoutSelector workouts={workouts} onBack={() => setWorkouts(null)} />}
+    </>
   );
 };
 
