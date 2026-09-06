@@ -77,6 +77,22 @@
   .btn-secondary {
     @apply bg-white text-brand-mid border border-app-border-mid hover:border-brand-300 hover:text-brand-600;
   }
+
+  .card {
+    @apply bg-white rounded-lg border border-app-border overflow-hidden;
+  }
+
+  .card-header {
+    @apply flex flex-wrap items-center justify-between border-b border-app-border py-4 px-5;
+  }
+
+  .card-title {
+    @apply font-heading font-bold text-sm tracking-tight;
+  }
+
+  .card-badge {
+    @apply bg-app-background font-semibold text-xxs text-brand-muted py-1 px-3 rounded-full border border-app-border-mid;
+  }
 }
 
 .animation-delay-75 {
