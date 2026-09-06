@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useDemo } from "@/context/DemoContext";
 import logo from "@/assets/images/logo.svg";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const { enterDemo } = useDemo();
+
+  const handleDemo = () => {
+    enterDemo();
+    navigate("/app");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +34,10 @@ const Navbar = () => {
         <span className="font-heading font-bold text-lg tracking-tighter">Runnr</span>
       </Link>
       <div className="flex items-center gap-3">
-        <button className="cursor-pointer text-brand-muted text-xs hover:text-brand-dark transition duration-150 ease-in">
+        <button
+          onClick={handleDemo}
+          className="cursor-pointer text-brand-muted text-xs hover:text-brand-dark transition duration-150 ease-in"
+        >
           Try live demo
         </button>
         <Link to="/login" className="btn btn-primary py-2 drop-shadow drop-shadow-brand-600/40" prefetch="none">

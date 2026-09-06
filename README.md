@@ -4,7 +4,7 @@ An app built with React & Firebase that can be used to track runs and provide in
 
 ## Features to be implemented
 
-- [ ] Google sign-in
+- [x] Google sign-in
 - [ ] Import data
   - [ ] Apple Health
   - [ ] Garmin Connect

@@ -1,9 +1,18 @@
+import { useNavigate } from "react-router";
 import { Check, Play, ChevronRight } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useDemo } from "@/context/DemoContext";
 import Navbar from "@/components/landing/Navbar";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const { login } = useAuth();
+  const { enterDemo } = useDemo();
+
+  const handleDemo = () => {
+    enterDemo();
+    navigate("/app");
+  };
 
   return (
     <>
@@ -90,7 +99,10 @@ const LoginPage = () => {
               <span className="text-xs text-brand-muted">or</span>
               <div className="flex-1 h-px bg-brand-100"></div>
             </div>
-            <button className="flex items-center justify-between cursor-pointer bg-brand-50 border border-brand-200 px-5 py-3 rounded-md w-full mb-6 opacity-0 animate-fade-up animation-delay-500 hover:bg-brand-100 hover:border-brand-300 transition duration-150 ease-in">
+            <button
+              onClick={handleDemo}
+              className="flex items-center justify-between cursor-pointer bg-brand-50 border border-brand-200 px-5 py-3 rounded-md w-full mb-6 opacity-0 animate-fade-up animation-delay-500 hover:bg-brand-100 hover:border-brand-300 transition duration-150 ease-in"
+            >
               <div className="flex items-center gap-3">
                 <div className="w-7 h-7 rounded bg-brand-600 flex items-center justify-center shrink-0">
                   <Play size={11} className="text-white" fill="#FFF" />

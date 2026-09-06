@@ -1,6 +1,7 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { MoveRight } from "lucide-react";
 import { ResponsiveContainer, Area, AreaChart, Tooltip, XAxis } from "recharts";
+import { useDemo } from "@/context/DemoContext";
 
 const DASHBOARD_STATS = [
   { label: "miles", value: "38.2" },
@@ -36,6 +37,14 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const { enterDemo } = useDemo();
+
+  const handleDemo = () => {
+    enterDemo();
+    navigate("/app");
+  };
+
   return (
     <section className="relative min-h-dvh grid grid-cols-1 md:grid-cols-2 gap-12 items-center justify-center bg-white overflow-hidden w-full">
       {/* LEFT */}
@@ -53,7 +62,10 @@ const Hero = () => {
           <Link to="/login" className="btn btn-primary py-3 px-7 drop-shadow drop-shadow-brand-600/40" prefetch="none">
             Start for free
           </Link>
-          <button className="group cursor-pointer text-xs text-brand-muted hover:text-brand-dark flex items-center gap-1 transition duration-150 ease-in">
+          <button
+            onClick={handleDemo}
+            className="group cursor-pointer text-xs text-brand-muted hover:text-brand-dark flex items-center gap-1 transition duration-150 ease-in"
+          >
             Try live demo
             <MoveRight className="group-hover:translate-x-0.5 transition duration-150 ease-in" size={12} />
           </button>

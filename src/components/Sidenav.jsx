@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router";
 import { LayoutDashboard, Activity, NotebookText, SportShoe, Upload, Smartphone, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useDemo } from "@/context/DemoContext";
 import logo from "@/assets/images/logo.svg";
 
 const navItemBase =
@@ -36,6 +37,7 @@ const NavItem = ({ to, icon: Icon, label, end }) => (
 
 const Sidenav = () => {
   const { logout } = useAuth();
+  const { isDemo, exitDemo } = useDemo();
 
   return (
     <aside className="fixed top-0 left-0 bottom-0 z-50 flex flex-col bg-white border-r border-app-border w-14 md:w-60 transition-all duration-200">
@@ -62,11 +64,11 @@ const Sidenav = () => {
       </nav>
       <div className="p-2 md:p-3 border-t border-app-border">
         <button
-          onClick={logout}
+          onClick={isDemo ? exitDemo : logout}
           className="group flex items-center gap-3 py-2.5 px-3 rounded-md cursor-pointer text-sm text-brand-muted hover:bg-brand-50 transition w-full"
         >
           <LogOut className="group-hover:text-brand-600" size={16} />
-          <span className="hidden md:inline text-xs group-hover:text-brand-600">Log out</span>
+          <span className="hidden md:inline text-xs group-hover:text-brand-600">{isDemo ? "Exit demo" : "Logout"}</span>
         </button>
       </div>
     </aside>

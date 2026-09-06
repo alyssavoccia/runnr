@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router";
 import { useAuth } from "@/context/AuthContext";
+import { useDemo } from "@/context/DemoContext";
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
 import AppLayout from "@/components/AppLayout";
@@ -8,8 +9,9 @@ import DashboardPage from "@/pages/DashboardPage";
 
 const App = () => {
   const { user } = useAuth();
+  const { isDemo } = useDemo();
 
-  const loginRedirect = user ? <Navigate to="/app" replace /> : <LoginPage />;
+  const loginRedirect = user || isDemo ? <Navigate to="/app" replace /> : <LoginPage />;
 
   return (
     <Routes>
