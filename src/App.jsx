@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router";
 import { useAuth } from "@/context/AuthContext";
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
+import AppLayout from "@/components/AppLayout";
 import ProtectedRoute from "@/pages/ProtectedRoute";
 import DashboardPage from "@/pages/DashboardPage";
 
@@ -18,9 +19,11 @@ const App = () => {
         path="/app/*"
         element={
           <ProtectedRoute>
-            <Routes>
-              <Route index element={<DashboardPage />} />
-            </Routes>
+            <AppLayout>
+              <Routes>
+                <Route index element={<DashboardPage />} />
+              </Routes>
+            </AppLayout>
           </ProtectedRoute>
         }
       />
