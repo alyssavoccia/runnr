@@ -5,7 +5,9 @@ import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
 import AppLayout from "@/components/AppLayout";
 import ProtectedRoute from "@/pages/ProtectedRoute";
+import { WorkoutsProvider } from "@/context/WorkoutsContext";
 import DashboardPage from "@/pages/DashboardPage";
+import ImportPage from "@/pages/ImportPage";
 
 const App = () => {
   const { user } = useAuth();
@@ -21,11 +23,14 @@ const App = () => {
         path="/app/*"
         element={
           <ProtectedRoute>
-            <AppLayout>
-              <Routes>
-                <Route index element={<DashboardPage />} />
-              </Routes>
-            </AppLayout>
+            <WorkoutsProvider>
+              <AppLayout>
+                <Routes>
+                  <Route index element={<DashboardPage />} />
+                  <Route path="import" element={<ImportPage />} />
+                </Routes>
+              </AppLayout>
+            </WorkoutsProvider>
           </ProtectedRoute>
         }
       />

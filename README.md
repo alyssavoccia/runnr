@@ -6,7 +6,7 @@ An app built with React & Firebase that can be used to track runs and provide in
 
 - [x] Google sign-in
 - [ ] Import data
-  - [ ] Apple Health
+  - [x] Apple Health
   - [ ] Garmin Connect
 - [ ] Weekly overview
 - [ ] Graph displaying mileage trend
