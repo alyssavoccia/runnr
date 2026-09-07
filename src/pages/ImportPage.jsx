@@ -25,9 +25,9 @@ const SOURCES = {
   garmin: {
     id: "garmin",
     label: "Garmin Connect",
-    types: ".tcx",
+    types: ".tcx, .csv, .gpx",
     icon: GarminIcon,
-    accept: ".tcx",
+    accept: ".tcx, .csv, .gpx",
   },
   apple: {
     id: "apple",

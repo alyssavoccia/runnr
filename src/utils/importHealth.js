@@ -109,5 +109,5 @@ export const importHealth = async (file) => {
 
   parser.close();
 
-  return workoutsArray;
+  return workoutsArray.sort((a, b) => new Date(b.date) - new Date(a.date));
 };

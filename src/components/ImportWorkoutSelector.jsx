@@ -6,8 +6,12 @@ import { useDemo } from "@/context/DemoContext";
 const NOW = Date.now();
 
 const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
+  console.log(workouts);
   const { isDemo } = useDemo();
   const [workoutDateRange, setWorkoutDateRange] = useState("all");
+  const [selectedIds, setSelectedIds] = useState(() =>
+    workouts.filter((workout) => !existingIds.has(workout.id)).map((workout) => workout.id),
+  );
 
   const formatMonthDay = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
@@ -18,24 +22,6 @@ const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
 
   const formatYear = (date) => {
     return new Date(date).getFullYear();
-  };
-
-  const toggleWorkout = (id) => {
-    if (isDemo || existingIds.has(id)) return;
-
-    if (selectedIds.includes(id)) {
-      setSelectedIds(selectedIds.filter((workout) => workout !== id));
-    } else {
-      setSelectedIds([...selectedIds, id]);
-    }
-  };
-
-  const toggleAllWorkouts = () => {
-    if (selectedIds.length === workouts.length) {
-      setSelectedIds([]);
-    } else {
-      setSelectedIds(workouts.map((workout) => workout.id));
-    }
   };
 
   const filtered = useMemo(() => {
@@ -57,9 +43,31 @@ const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
     });
   }, [workouts, workoutDateRange]);
 
-  const [selectedIds, setSelectedIds] = useState(() => {
-    return filtered.filter((w) => !existingIds.has(w.id)).map((w) => w.id);
-  });
+  const selectableWorkouts = useMemo(() => {
+    return filtered.filter((workout) => !existingIds.has(workout.id));
+  }, [filtered, existingIds]);
+
+  const selectableIds = useMemo(() => {
+    return selectableWorkouts.map((workout) => workout.id);
+  }, [selectableWorkouts]);
+
+  const toggleWorkout = (id) => {
+    if (isDemo || existingIds.has(id)) return;
+
+    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((workoutId) => workoutId !== id) : [...prev, id]));
+  };
+
+  const toggleAllWorkouts = () => {
+    if (isDemo || selectableIds.length === 0) return;
+
+    setSelectedIds((prev) => {
+      const allSelected = selectableIds.every((id) => prev.includes(id));
+
+      return allSelected ? [] : selectableIds;
+    });
+  };
+
+  const allSelectableSelected = selectableIds.length > 0 && selectableIds.every((id) => selectedIds.includes(id));
 
   const dupeCount = workouts.filter((w) => existingIds.has(w.id)).length;
 
@@ -81,12 +89,12 @@ const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
         <div className="flex gap-4">
           <div>
             <p className="font-heading font-extrabold text-lg tracking-tight leading-none">{workouts.length}</p>
-            <p className="text-xxs text-brand-muted">Workouts found</p>
+            <p className="text-xxs text-brand-muted">Workout{workouts.length > 1 && "s"} found</p>
           </div>
           {dupeCount > 0 && (
             <div className="border-l border-app-border pl-4">
               <p className="font-heading font-extrabold text-lg tracking-tight leading-none">{dupeCount}</p>
-              <p className="text-xxs text-brand-muted">duplicates</p>
+              <p className="text-xxs text-brand-muted">duplicate{dupeCount > 1 && "s"}</p>
             </div>
           )}
         </div>
@@ -99,9 +107,9 @@ const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
           <button
             onClick={toggleAllWorkouts}
             className="btn bg-brand-50/10 text-brand-50 hover:bg-brand-50/20 disabled:bg-brand-50/20 disabled:text-brand-50 disabled:cursor-not-allowed"
-            disabled={selectedIds.length === 0 || isDemo}
+            disabled={selectableIds.length === 0 || isDemo}
           >
-            {selectedIds.length === filtered.length ? "Deselect all" : `Select all (${filtered.length})`}
+            {allSelectableSelected ? "Deselect all" : `Select all (${selectableIds.length})`}
           </button>
           <button
             onClick={() => onImport(filtered.filter((w) => selectedIds.includes(w.id)))}
@@ -133,10 +141,10 @@ const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
             <tr>
               <th className="py-2.5 px-5.5">
                 <button
-                  disabled={dupeCount === workouts.length}
+                  disabled={selectableIds.length === 0}
                   onClick={toggleAllWorkouts}
                   className={`cursor-pointer w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all disabled:cursor-not-allowed ${
-                    selectedIds.length === workouts.length ? "bg-brand-500 border-brand-500" : "border-brand-muted"
+                    allSelectableSelected ? "bg-brand-500 border-brand-500" : "border-brand-muted"
                   }`}
                 >
                   <Check size={11} className="text-app-background" strokeWidth={3} />
@@ -215,8 +223,8 @@ const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
                   </td>
                   <td className="py-2.5 px-5.5">
                     <div>
-                      <p className="font-heading font-bold text-sm">{workout.avgHR ? workout.avgHr.toFixed(0) : "N/A"}</p>
-                      {workout.avgHR && <p className="text-xs text-brand-muted/90">bpm</p>}
+                      <p className="font-heading font-bold text-sm">{workout.avgHr ? workout.avgHr.toFixed(0) : "N/A"}</p>
+                      {workout.avgHr && <p className="text-xs text-brand-muted/90">bpm</p>}
                     </div>
                   </td>
                 </tr>
@@ -233,12 +241,12 @@ const ImportWorkoutSelector = ({ workouts, existingIds, onBack, onImport }) => {
           <button
             onClick={toggleAllWorkouts}
             className="btn btn-secondary disabled:hover:border-app-border-mid disabled:hover:text-brand-mid! disabled:cursor-not-allowed"
-            disabled={selectedIds.length === 0 || isDemo}
+            disabled={selectableIds.length === 0 || isDemo}
           >
-            {selectedIds.length === filtered.length ? "Deselect all" : `Select all (${filtered.length})`}
+            {allSelectableSelected ? "Deselect all" : `Select all (${selectableIds.length})`}
           </button>
           <button
-            onClick={() => onImport(filtered.filter((w) => selectedIds.has(w.id)))}
+            onClick={() => onImport(filtered.filter((w) => selectedIds.includes(w.id)))}
             className="btn btn-primary disabled:bg-brand-700! disabled:cursor-not-allowed"
             disabled={selectedIds.length === 0 || isDemo}
           >

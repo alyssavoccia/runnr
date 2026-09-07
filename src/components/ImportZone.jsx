@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Upload } from "lucide-react";
+import { parseGarminTCX, parseGarminCSV, parseGarminGPX } from "@/utils/importGarmin";
 import { importHealth } from "@/utils/importHealth";
 import ImportStatus from "@/components/ImportStatus";
 
@@ -17,6 +18,14 @@ const ImportZone = ({ source, setWorkouts }) => {
 
       if (extension === "xml") {
         setWorkouts(await importHealth(file));
+      } else if (extension === "tcx") {
+        setWorkouts(await parseGarminTCX(await file.text()));
+      } else if (extension === "csv") {
+        setWorkouts(await parseGarminCSV(await file.text()));
+      } else if (extension === "gpx") {
+        setWorkouts(await parseGarminGPX(await file.text()));
+      } else {
+        throw new Error("Unsupported file type.");
       }
     } catch (e) {
       setError(e.message);
